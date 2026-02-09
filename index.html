@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Studio 4282 — Central</title>
+  <meta name="description" content="Central de projetos do Studio 4282: saga de Santee, séries, músicas e publicações." />
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#0f1722;
+      --text:#e8eef7;
+      --muted:#a7b3c7;
+      --line:#1f2a3a;
+      --accent:#7dd3fc;
+      --accent2:#a78bfa;
+      --ok:#34d399;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --max: 1100px;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 10% 0%, rgba(125,211,252,.18), transparent 60%),
+                  radial-gradient(900px 500px at 90% 10%, rgba(167,139,250,.16), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.5;
+    }
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width:var(--max); margin:0 auto; padding:22px; }
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px;
+      position:sticky; top:0;
+      backdrop-filter: blur(10px);
+      background: rgba(11,15,20,.72);
+      border-bottom: 1px solid rgba(31,42,58,.55);
+      z-index:10;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      padding:14px 0;
+    }
+    .logo{
+      width:34px; height:34px; border-radius:10px;
+      background: linear-gradient(135deg, rgba(125,211,252,.95), rgba(167,139,250,.95));
+      box-shadow: var(--shadow);
+      position:relative;
+    }
+    .logo:after{
+      content:"";
+      position:absolute; inset:8px;
+      border-radius:8px;
+      border:1px solid rgba(11,15,20,.55);
+    }
+    .brand h1{ font-size:16px; margin:0; letter-spacing:.2px; }
+    .brand p{ margin:0; font-size:12px; color:var(--muted); }
+
+    .nav{
+      display:flex; gap:10px; flex-wrap:wrap;
+      justify-content:flex-end;
+      padding:10px 0;
+    }
+    .pill{
+      border:1px solid rgba(31,42,58,.75);
+      background: rgba(15,23,34,.55);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+    }
+    .pill:hover{
+      transform: translateY(-1px);
+      border-color: rgba(125,211,252,.65);
+      background: rgba(15,23,34,.75);
+      color: var(--text);
+    }
+
+    .hero{
+      padding:44px 0 26px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:22px;
+      align-items:stretch;
+    }
+    @media (max-width: 860px){
+      .hero{ grid-template-columns:1fr; }
+      .nav{ justify-content:flex-start; }
+      .topbar{ position:static; backdrop-filter:none; background:transparent; border:0; }
+    }
+
+    .panel{
+      border:1px solid rgba(31,42,58,.75);
+      background: rgba(15,23,34,.62);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:22px;
+      overflow:hidden;
+      position:relative;
+    }
+    .panel:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(600px 240px at 20% 0%, rgba(125,211,252,.18), transparent 60%),
+                  radial-gradient(520px 240px at 90% 20%, rgba(167,139,250,.14), transparent 55%);
+      pointer-events:none;
+    }
+    .panel > *{ position:relative; }
+
+    .kicker{
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:12px; color:var(--muted);
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(31,42,58,.75);
+      background: rgba(11,15,20,.35);
+      margin-bottom:12px;
+      width:fit-content;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:999px; background: var(--ok);
+      box-shadow: 0 0 0 4px rgba(52,211,153,.12);
+    }
+    .hero h2{
+      margin:0 0 10px;
+      font-size:34px;
+      letter-spacing:-.4px;
+      line-height:1.15;
+    }
+    .hero p{
+      margin:0 0 16px;
+      color:var(--muted);
+      font-size:15px;
+      max-width: 62ch;
+    }
+    .cta{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top: 10px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px;
+      border-radius: 12px;
+      font-size:14px;
+      border:1px solid rgba(31,42,58,.85);
+      background: rgba(11,15,20,.25);
+      color:var(--text);
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); border-color: rgba(125,211,252,.65); }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(125,211,252,.9), rgba(167,139,250,.9));
+      color: #0b0f14;
+      border-color: transparent;
+      font-weight: 600;
+    }
+    .btn.primary:hover{ transform: translateY(-1px); }
+
+    .mini{
+      display:grid; gap:12px;
+    }
+    .stat{
+      border:1px solid rgba(31,42,58,.75);
+      background: rgba(11,15,20,.28);
+      border-radius: 14px;
+      padding:14px;
+    }
+    .stat b{ display:block; font-size:14px; margin-bottom:4px; }
+    .stat span{ color:var(--muted); font-size:13px; }
+
+    .section-title{
+      margin: 20px 0 10px;
+      font-size: 16px;
+      color: var(--text);
+      letter-spacing:.2px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    @media (max-width: 980px){ .grid{ grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 620px){ .grid{ grid-template-columns: 1fr; } }
+
+    .card{
+      border:1px solid rgba(31,42,58,.75);
+      background: rgba(15,23,34,.55);
+      border-radius: var(--radius);
+      padding:16px;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+      min-height: 132px;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(167,139,250,.55);
+      background: rgba(15,23,34,.72);
+    }
+    .card h3{ margin:0 0 6px; font-size:15px; }
+    .card p{ margin:0 0 12px; color:var(--muted); font-size:13px; }
+    .meta{
+      display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .tag{
+      border:1px solid rgba(31,42,58,.75);
+      background: rgba(11,15,20,.25);
+      padding:4px 8px;
+      border-radius:999px;
+    }
+
+    footer{
+      border-top:1px solid rgba(31,42,58,.65);
+      margin-top: 26px;
+      padding: 18px 0 24px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .foot{
+      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    }
+    .foot a{ color: var(--accent); }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap" style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Studio 4282 — Central</h1>
+          <p>Projetos • Saga de Santee • Música • Séries</p>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Navegação principal">
+        <a class="pill" href="#projetos">Projetos</a>
+        <a class="pill" href="#santee">Santee</a>
+        <a class="pill" href="#musica">Música</a>
+        <a class="pill" href="#sobre">Sobre</a>
+        <a class="pill" href="#contato">Contato</a>
+      </nav>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <section class="hero" id="topo">
+      <div class="panel">
+        <div class="kicker"><span class="dot"></span>Hub oficial — GitHub Pages</div>
+        <h2>Uma central simples, rápida e bonita<br/>para organizar seus universos.</h2>
+        <p>
+          Aqui você concentra páginas, links e atualizações: a <b>Saga de Santee</b>, séries do Studio 4282,
+          projetos musicais e materiais de referência. Estrutura leve, HTML/CSS puro, pronta para crescer.
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="#santee">Entrar na Saga de Santee</a>
+          <a class="btn" href="#projetos">Ver todos os projetos</a>
+        </div>
+      </div>
+
+      <aside class="panel mini" aria-label="Destaques">
+        <div class="stat">
+          <b>Atualização rápida</b>
+          <span>Edite arquivos .html e publique em segundos no GitHub Pages.</span>
+        </div>
+        <div class="stat">
+          <b>Organização por áreas</b>
+          <span>Projetos, saga, música, textos e links — tudo em um lugar.</span>
+        </div>
+        <div class="stat">
+          <b>Pronto pra escalar</b>
+          <span>Depois você pode adicionar blog, busca, ou páginas por temporada.</span>
+        </div>
+      </aside>
+    </section>
+
+    <h2 class="section-title" id="projetos">Projetos</h2>
+    <section class="grid" aria-label="Lista de projetos">
+      <a class="card" href="#santee">
+        <h3>Saga de Santee</h3>
+        <p>Universo narrativo principal: temporadas, personagens e linhas do tempo.</p>
+        <div class="meta">
+          <span class="tag">ficção</span>
+          <span class="tag">mistério</span>
+          <span class="tag">Shagma Sagrada</span>
+        </div>
+      </a>
+
+      <a class="card" href="#musica">
+        <h3>Ministério Luz e Louvor</h3>
+        <p>Salmos, álbuns, lançamentos e páginas de apoio (cifras, letras e vídeos).</p>
+        <div class="meta">
+          <span class="tag">música</span>
+          <span class="tag">liturgia</span>
+          <span class="tag">YouTube</span>
+        </div>
+      </a>
+
+      <a class="card" href="#sobre">
+        <h3>Outras séries & ideias</h3>
+        <p>Um espaço para links de séries, cursos, jogos e experimentos.</p>
+        <div class="meta">
+          <span class="tag">educação</span>
+          <span class="tag">jogos</span>
+          <span class="tag">criativo</span>
+        </div>
+      </a>
+    </section>
+
+    <h2 class="section-title" id="santee">Saga de Santee</h2>
+    <section class="grid" aria-label="Santee">
+      <a class="card" href="santee/index.html" title="Criar esta página depois">
+        <h3>Início da Saga</h3>
+        <p>Resumo, premissa e portas de entrada (temporadas e personagens).</p>
+        <div class="meta">
+          <span class="tag">/santee</span>
+          <span class="tag">começar</span>
+        </div>
+      </a>
+
+      <a class="card" href="santee/personagens.html" title="Criar esta página depois">
+        <h3>Personagens</h3>
+        <p>Edward Santee, Burak, Samanta, INC, e conexões essenciais.</p>
+        <div class="meta">
+          <span class="tag">/santee</span>
+          <span class="tag">guia</span>
+        </div>
+      </a>
+
+      <a class="card" href="santee/linha-do-tempo.html" title="Criar esta página depois">
+        <h3>Linha do tempo</h3>
+        <p>Ordem de eventos, temporadas e revelações sem confundir o leitor.</p>
+        <div class="meta">
+          <span class="tag">/santee</span>
+          <span class="tag">cronologia</span>
+        </div>
+      </a>
+    </section>
+
+    <h2 class="section-title" id="musica">Música</h2>
+    <section class="grid" aria-label="Música">
+      <a class="card" href="musica/index.html" title="Criar esta página depois">
+        <h3>Central de Salmos</h3>
+        <p>Calendário, capas, refrões e links para vídeos e letras.</p>
+        <div class="meta">
+          <span class="tag">/musica</span>
+          <span class="tag">salmos</span>
+        </div>
+      </a>
+
+      <a class="card" href="musica/albuns.html" title="Criar esta página depois">
+        <h3>Álbuns</h3>
+        <p>Discografia, capas e páginas de cada álbum.</p>
+        <div class="meta">
+          <span class="tag">/musica</span>
+          <span class="tag">álbuns</span>
+        </div>
+      </a>
+
+      <a class="card" href="musica/links.html" title="Criar esta página depois">
+        <h3>Links & Plataformas</h3>
+        <p>YouTube, Spotify e demais plataformas (tudo em um só lugar).</p>
+        <div class="meta">
+          <span class="tag">/musica</span>
+          <span class="tag">streaming</span>
+        </div>
+      </a>
+    </section>
+
+    <h2 class="section-title" id="sobre">Sobre</h2>
+    <section class="panel" style="margin-top:12px;">
+      <p style="margin:0; color:var(--muted);">
+        Esta central foi feita para organizar e publicar páginas do <b>Studio 4282</b> com simplicidade.
+        Você pode criar pastas como <span class="tag">/santee</span>, <span class="tag">/musica</span>,
+        <span class="tag">/jogos</span> e ir adicionando novas páginas aos poucos.
+      </p>
+    </section>
+
+    <h2 class="section-title" id="contato">Contato</h2>
+    <section class="panel" style="margin-top:12px;">
+      <p style="margin:0 0 10px; color:var(--muted);">
+        Coloque aqui seus links (YouTube, Instagram, e-mail ou formulário).
+      </p>
+      <div class="cta">
+        <a class="btn" href="#" onclick="alert('Edite este link para seu canal/contato.'); return false;">Adicionar link</a>
+        <a class="btn" href="#topo">Voltar ao topo</a>
+      </div>
+    </section>
+
+    <footer>
+      <div class="foot">
+        <div>© <span id="y"></span> Studio 4282 — GitHub Pages</div>
+        <div>
+          <a href="#topo">Topo</a>
+          <span style="opacity:.5;"> • </span>
+          <a href="#projetos">Projetos</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
